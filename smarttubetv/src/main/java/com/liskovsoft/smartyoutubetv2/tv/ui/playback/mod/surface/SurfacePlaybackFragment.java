@@ -205,8 +205,8 @@ public class SurfacePlaybackFragment extends PlaybackSupportFragment {
             scaleSubtitles(scaleSubsWidth(), scaleSubsPadding(), Gravity.END);
         } else if ((gravity & Gravity.CENTER) == Gravity.CENTER) {
             scaleSubtitles(ViewGroup.LayoutParams.MATCH_PARENT, mSubtitlesPadding, Gravity.CENTER);
-        }}private void setRoundedCorners(boolean enable) {
-    if (mVideoSurfaceWrapper == null) {
+        }}@android.annotation.SuppressLint("NewApi")private void setRoundedCorners(boolean enable) {
+    if (mVideoSurfaceWrapper == null) {if (android.os.Build.VERSION.SDK_INT < 21) { return; }
         return;
     }
     View surface = mVideoSurfaceWrapper.getSurfaceView();
