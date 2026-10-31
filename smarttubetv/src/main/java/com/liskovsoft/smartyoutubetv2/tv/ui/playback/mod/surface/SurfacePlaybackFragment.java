@@ -1,12 +1,13 @@
 package com.liskovsoft.smartyoutubetv2.tv.ui.playback.mod.surface;
 
-import android.os.Bundle;
+import android.os.Bundle;import android.graphics.Outline;import android.graphics.Outline;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.FrameLayout;
 import androidx.leanback.app.PlaybackSupportFragment;
 import com.google.android.exoplayer2.ui.AspectRatioFrameLayout;
@@ -192,7 +193,7 @@ public class SurfacePlaybackFragment extends PlaybackSupportFragment {
     }
 
     protected void setGravity(int gravity) {
-        ViewUtil.setGravity(mVideoSurfaceRoot, gravity);
+        ViewUtil.setGravity(mVideoSurfaceRoot, gravity);setRoundedCorners(gravity != Gravity.CENTER);
 
         scaleSubtitles(gravity);
     }
@@ -204,8 +205,25 @@ public class SurfacePlaybackFragment extends PlaybackSupportFragment {
             scaleSubtitles(scaleSubsWidth(), scaleSubsPadding(), Gravity.END);
         } else if ((gravity & Gravity.CENTER) == Gravity.CENTER) {
             scaleSubtitles(ViewGroup.LayoutParams.MATCH_PARENT, mSubtitlesPadding, Gravity.CENTER);
-        }
+        }}private void setRoundedCorners(boolean enable) {
+    if (mVideoSurfaceWrapper == null) {
+        return;
     }
+    View surface = mVideoSurfaceWrapper.getSurfaceView();
+    if (enable) {
+        final float radius = 16 * getResources().getDisplayMetrics().density;
+        surface.setOutlineProvider(new ViewOutlineProvider() {
+            @Override
+            public void getOutline(View view, Outline outline) {
+                outline.setRoundRect(0, 0, view.getWidth(), view.getHeight(), radius);
+            }
+        });
+        surface.setClipToOutline(true);
+    } else {
+        surface.setClipToOutline(false);
+    }
+    }
+   
 
     private void scaleSubtitles(int width, int padding, int gravity) {
         ViewUtil.setWidth(mLeanbackSubtitles, width);
