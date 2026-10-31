@@ -159,7 +159,14 @@ public class CommentsPreferenceDialogFragment extends LeanbackPreferenceDialogFr
             adapter.addToEnd(mBackupMessages, false);
             adapter.setFocusedMessage(mFocusedMessage);
         }
-
+View mainFrame = view.findViewById(R.id.main_frame);
+if (mainFrame != null && android.os.Build.VERSION.SDK_INT >= 21) {
+    android.graphics.drawable.GradientDrawable roundedBg = new android.graphics.drawable.GradientDrawable();
+    roundedBg.setColor(androidx.core.content.ContextCompat.getColor(view.getContext(), R.color.lb_preference_decor_list_background));
+    roundedBg.setCornerRadius(16 * view.getResources().getDisplayMetrics().density);
+    mainFrame.setBackground(roundedBg);
+    mainFrame.setClipToOutline(true);
+}
         if (mIsTransparent) {
             // Enable transparent shadow outline on parent (R.id.settings_preference_fragment_container)
             ViewUtil.enableTransparentDialog(getActivity(), getParentFragment().getView());
