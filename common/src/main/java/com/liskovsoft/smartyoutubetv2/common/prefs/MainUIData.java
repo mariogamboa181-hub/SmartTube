@@ -420,6 +420,12 @@ public class MainUIData extends DataChangeBase implements ProfileChangeListener 
                 "App.Theme.Leanback.Blue.OLED.Player",
                 "App.Theme.Leanback.Blue.OLED.Browse",
                 "App.Theme.Leanback.Blue.Preferences",
+                mContext));        
+        mColorSchemes.add(new ColorScheme(
+                R.string.color_scheme_turquoise,
+                "App.Theme.Turquoise.Player",
+                "App.Theme.Turquoise.Browse",
+                "App.Theme.Turquoise.Preferences",
                 mContext));
     }
 
