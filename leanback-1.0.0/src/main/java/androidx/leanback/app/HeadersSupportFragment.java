@@ -252,7 +252,7 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
         }
     }
 
-    private void updateFadingEdgeToBrandColor(int backgroundColor) {    private void applyRoundedBackground(VerticalGridView listView, int color) {
+        private void applyRoundedBackground(VerticalGridView listView, int color) {
         float density = listView.getResources().getDisplayMetrics().density;
         GradientDrawable panel = new GradientDrawable();
         panel.setColor(color);
@@ -264,6 +264,8 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
             fadingView.setVisibility(View.GONE);
         }
     }
+
+    private void updateFadingEdgeToBrandColor(int backgroundColor) {
                                                                     
         View fadingView = getView().findViewById(R.id.fade_out_edge);
         Drawable background = fadingView.getBackground();
