@@ -19,6 +19,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.InsetDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
@@ -170,7 +171,7 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
             return;
         }
         if (mBackgroundColorSet) {
-            listView.setBackgroundColor(mBackgroundColor);
+            applyRoundedBackground(listView, mBackgroundColor);
             updateFadingEdgeToBrandColor(mBackgroundColor);
         } else {
             Drawable d = listView.getBackground();
@@ -246,12 +247,24 @@ public class HeadersSupportFragment extends BaseRowSupportFragment {
         mBackgroundColorSet = true;
 
         if (getVerticalGridView() != null) {
-            getVerticalGridView().setBackgroundColor(mBackgroundColor);
+            applyRoundedBackground(getVerticalGridView(), mBackgroundColor);
             updateFadingEdgeToBrandColor(mBackgroundColor);
         }
     }
 
-    private void updateFadingEdgeToBrandColor(int backgroundColor) {
+    private void updateFadingEdgeToBrandColor(int backgroundColor) {    private void applyRoundedBackground(VerticalGridView listView, int color) {
+        float density = listView.getResources().getDisplayMetrics().density;
+        GradientDrawable panel = new GradientDrawable();
+        panel.setColor(color);
+        panel.setCornerRadius(14 * density);
+        listView.setBackground(new InsetDrawable(panel, Math.round(10 * density)));
+
+        View fadingView = getView() != null ? getView().findViewById(R.id.fade_out_edge) : null;
+        if (fadingView != null) {
+            fadingView.setVisibility(View.GONE);
+        }
+    }
+                                                                    
         View fadingView = getView().findViewById(R.id.fade_out_edge);
         Drawable background = fadingView.getBackground();
         if (background instanceof GradientDrawable) {
