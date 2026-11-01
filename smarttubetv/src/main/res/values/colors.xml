@@ -45,7 +45,13 @@
     <!-- Blue color scheme -->
     <color name="scheme_blue_background">#33B5E5</color>
     <color name="scheme_blue_background_dark">#207EA1</color>
-
+    <!-- Turquoise color scheme -->
+    <color name="scheme_turq_accent">#1DE9D6</color>
+    <color name="scheme_turq_accent_soft">#801DE9D6</color>
+    <color name="scheme_turq_background_dark">#0B2A30</color>
+    <color name="scheme_turq_shelf_background">#06161A</color>
+    <color name="scheme_turq_card_background">#0F3A40</color>
+    <color name="scheme_turq_card_selected">#A7F3EB</color>
     <!-- Vineyard -->
     <color name="black_87pc">#77000000</color>
     <color name="primary_dark">#00796B</color>
