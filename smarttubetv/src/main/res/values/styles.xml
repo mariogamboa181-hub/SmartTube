@@ -247,5 +247,27 @@
     <style name="App.Theme.Leanback.Blue.OLED.Player" parent="App.Theme.Leanback.Blue.Player">
         <item name="cardSelectedBackground">@color/card_selected_background_white_grey</item>
     </style>
-    <!--  End Color scheme: Dark Blue (OLED)  -->
+    <!--  End Color scheme: Dark Blue (OLED)  --> 
+    <style name="App.Theme.Turquoise.Browse" parent="App.Theme.Leanback.Browse">
+        <item name="android:windowBackground">@color/scheme_turq_shelf_background</item>
+        <item name="brandColor">@color/scheme_turq_background_dark</item>
+        <item name="brandAccentColor">@color/scheme_turq_accent</item>
+        <item name="shelfBackground">@color/scheme_turq_shelf_background</item>
+        <item name="cardDefaultBackground">@color/scheme_turq_card_background</item>
+        <item name="cardSelectedBackground">@color/scheme_turq_card_selected</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/scheme_turq_accent</item>
+    </style>
+    <style name="App.Theme.Turquoise.Player" parent="App.Theme.Leanback.Player">
+        <item name="playbackProgressPrimaryColor">@color/scheme_turq_accent</item>
+        <item name="playbackProgressSecondaryColor">@color/scheme_turq_accent_soft</item>
+        <item name="playbackControlsIconHighlightColor">@color/scheme_turq_accent</item>
+        <item name="shelfBackground">@color/scheme_turq_shelf_background</item>
+        <item name="cardDefaultBackground">@color/scheme_turq_card_background</item>
+        <item name="cardSelectedBackground">@color/scheme_turq_card_selected</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/scheme_turq_accent</item>
+    </style>
+    <style name="App.Theme.Turquoise.Preferences" parent="App.Theme.Leanback.Preferences">
+        <item name="android:colorPrimary" tools:targetApi="21">@color/scheme_turq_background_dark</item>
+        <item name="android:colorAccent" tools:targetApi="21">@color/scheme_turq_accent</item>
+    </style>
 </resources>
