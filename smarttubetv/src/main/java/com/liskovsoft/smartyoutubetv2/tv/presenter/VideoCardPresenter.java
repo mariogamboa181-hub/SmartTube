@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.os.Build.VERSION;
 import android.util.Pair;
 import android.view.View;
@@ -71,6 +73,7 @@ public class VideoCardPresenter extends LongClickPresenter {
             @Override
             public void setSelected(boolean selected) {
                 updateCardBackgroundColor(this, selected);
+                updateCardGlow(this, selected);
                 super.setSelected(selected);
             }
         };
@@ -92,7 +95,62 @@ public class VideoCardPresenter extends LongClickPresenter {
         return new ViewHolder(cardView);
     }
 
-    private void updateCardBackgroundColor(ComplexImageCardView view, boolean selected) {
+    
+        private void updateCardGlow(ComplexImageCardView view, boolean selected) {
+        if (VERSION.SDK_INT < 23) {
+            return;
+        }
+
+        Context context = view.getContext();
+        MainUIData uiData = MainUIData.instance(context);
+
+        if (uiData.getColorScheme().nameResId != com.liskovsoft.smartyoutubetv2.common.R.string.color_scheme_turquoise) {
+            return;
+        }
+
+        if (!selected) {
+            view.setForeground(null);
+            return;
+        }
+
+        float density = context.getResources().getDisplayMetrics().density;
+        float radius = uiData.isUiTweakEnabled(MainUIData.UI_TWEAK_ROUNDED_CORNERS) ?
+                context.getResources().getDimension(R.dimen.lb_rounded_rect_corner_radius) : 0;
+
+        int[] widthsDp = {3, 4, 6};
+        int[] colors = {0xFF1DE9D6, 0x661DE9D6, 0x261DE9D6};
+        Drawable[] layers = new Drawable[widthsDp.length];
+        int[] insets = new int[widthsDp.length];
+        int inset = 0;
+
+        for (int i = 0; i < widthsDp.length; i++) {
+            int widthPx = Math.round(widthsDp[i] * density);
+            GradientDrawable ring = new GradientDrawable();
+            ring.setShape(GradientDrawable.RECTANGLE);
+            ring.setColor(0x00000000);
+            ring.setCornerRadius(Math.max(0, radius - inset));
+            ring.setStroke(widthPx, colors[i]);
+            layers[i] = ring;
+            insets[i] = inset;
+            inset += widthPx;
+        }
+
+        LayerDrawable glow = new LayerDrawable(layers);
+        for (int i = 0; i < layers.length; i++) {
+            glow.setLayerInset(i, insets[i], insets[i], insets[i], insets[i]);
+        }
+        view.setForeground(glow);
+
+        if (VERSION.SDK_INT >= 28) {
+            view.setOutlineSpotShadowColor(0xFF1DE9D6);
+            view.setOutlineAmbientShadowColor(0xFF1DE9D6);
+            if (view.getParent() instanceof View) {
+                View wrapper = (View) view.getParent();
+                wrapper.setOutlineSpotShadowColor(0xFF1DE9D6);
+                wrapper.setOutlineAmbientShadowColor(0xFF1DE9D6);
+            }
+        }
+    }private void updateCardBackgroundColor(ComplexImageCardView view, boolean selected) {
         int backgroundColor = selected ? mSelectedBackgroundColor : mDefaultBackgroundColor;
         int textColor = selected ? mSelectedTextColor : mDefaultTextColor;
 
