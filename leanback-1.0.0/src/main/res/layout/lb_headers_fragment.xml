@@ -27,6 +27,8 @@
         android:id="@+id/browse_headers"
         android:layout_width="@dimen/lb_browse_headers_width"
         android:layout_height="match_parent"
+                 android:paddingTop="180dp"
+        android:clipToPadding="true"
         style="?attr/headersVerticalGridStyle"/>
     <View
         android:id="@+id/fade_out_edge"
